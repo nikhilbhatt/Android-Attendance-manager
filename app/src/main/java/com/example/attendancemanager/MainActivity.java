@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements Adapter.OncustCli
         adapt=new Adapter(this,getallitems(),mclick);
         mrecyclerview.setAdapter(adapt);
 
+        relativeLayout=findViewById(R.id.rellayout);
+        checkback();
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
@@ -77,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OncustCli
                      }
             }
         }).attachToRecyclerView(mrecyclerview);
-        relativeLayout=findViewById(R.id.rellayout);
+
         addsubbutton = findViewById(R.id.addsubjectbutton);
         addsubbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements Adapter.OncustCli
                             percentile="0.0";
                             bnk="No suggestions";
                         }
-                        relativeLayout.setBackgroundColor(Color.parseColor("#ffffff"));
                         Calendar cale=Calendar.getInstance();
                         SimpleDateFormat sdf=new SimpleDateFormat(" HH:mm:ss dd MMMM yyyy");
                         String Curdate=sdf.format(cale.getTime());
@@ -168,15 +170,18 @@ public class MainActivity extends AppCompatActivity implements Adapter.OncustCli
                         cv.put(Tablevalues.Coloums.COLOUMN_TIME,"Last updated:"+Curdate);
                         mdata.insert(Tablevalues.Coloums.TABLE_NAME, null, cv);
                         adapt.swapcursor(getallitems());
+                        checkback();
                     }
                 });
         AlertDialog a=alertdialog.create();
         a.show();
+
     }
     private void removeitem(long id)
     {
            mdata.delete(Tablevalues.Coloums.TABLE_NAME,Tablevalues.Coloums._ID+"="+id,null);
            adapt.swapcursor(getallitems());
+            checkback();
     }
     private Cursor getallitems()
     {
@@ -312,6 +317,15 @@ public class MainActivity extends AppCompatActivity implements Adapter.OncustCli
             cbunk="Don't miss next lecture";
         }
         return cbunk;
+    }
+    public void checkback()
+    {
+        Cursor crsr=mdata.rawQuery("SELECT COUNT(*) FROM "+Tablevalues.Coloums.TABLE_NAME,null);
+        crsr.moveToFirst();
+        if(crsr.getInt(0)==0)
+            relativeLayout.setBackgroundResource(R.drawable.addimg);
+        else
+            relativeLayout.setBackgroundColor(Color.parseColor("#ffffff"));
     }
 
 }
