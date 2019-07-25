@@ -325,6 +325,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OncustCli
         if(crsr.getInt(0)==0)
             relativeLayout.setBackgroundResource(R.drawable.addimg);
         else
+
             relativeLayout.setBackgroundColor(Color.parseColor("#ffffff"));
     }
 
