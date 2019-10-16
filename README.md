@@ -9,4 +9,4 @@ you suggestion about your next class(whether to attend or bunk in order to attai
 screenshot of the main activity.
  
  
-![](https://github.com/nikhilbhatt/Attendance-manager/blob/master/screenshots/Screenshot_20190719-001948.png) 
+<img src="https://github.com/nikhilbhatt/Attendance-manager/blob/master/screenshots/Screenshot_20190719-001948.png" width="350" height="600"> 
