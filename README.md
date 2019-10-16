@@ -23,7 +23,7 @@ Manage your attendance daily and check how many classes you need to go to mainta
 
 # Features
 
-1. Recycler View 
+   1. Recycler View 
    2. Card View
    3. Sqlite Database
    4. Shared Preferences
